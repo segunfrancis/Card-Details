@@ -1,4 +1,4 @@
-package com.segunfrancis.carddetails
+package com.segunfrancis.carddetails.presentation.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
