@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlinx-serialization'
 }
 
 android {
@@ -49,16 +48,18 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_ext_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_ext_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutine_version"
-    //implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.0.1'
-    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.5.0"
     // Koin
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okHttp_version"
     implementation "com.squareup.okhttp3:okhttp:$okHttp_version"
+
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     testImplementation "junit:junit:$jUnit_version"
     androidTestImplementation "androidx.test.ext:junit:$jUnitExt_version"
