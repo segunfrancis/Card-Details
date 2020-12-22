@@ -12,5 +12,18 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="snackbarStyle">@style/Widget.MaterialComponents.Snackbar.FullWidth</item>
+    </style>
+
+    <style name="TextMain" parent="TextAppearance.AppCompat.Medium">
+        <item name="fontFamily">@font/antic</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextSub" parent="TextAppearance.AppCompat.Medium">
+        <item name="fontFamily">@font/antic</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textSize">16sp</item>
     </style>
 </resources>

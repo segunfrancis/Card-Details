@@ -5,8 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
+import com.google.android.material.snackbar.Snackbar
 import com.segunfrancis.carddetails.databinding.FragmentMainBinding
+import com.segunfrancis.carddetails.domain.BinListResponse
 import com.segunfrancis.carddetails.presentation.util.Result
+import com.segunfrancis.carddetails.presentation.util.enableState
 import org.koin.android.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -14,7 +18,7 @@ class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
-    val viewModel: MainViewModel by viewModel()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,24 +32,44 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.checkCardButton.setOnClickListener {
-            if (!binding.cardNumberEditText.text.isNullOrEmpty()) {
-                viewModel.getBinResponse(binding.cardNumberEditText.text.toString())
-            }
+            viewModel.getBinResponse(binding.cardNumberEditText.text.toString())
         }
 
         viewModel.binResponse.observe(viewLifecycleOwner) { result ->
             when (result) {
                 is Result.Loading -> {
-                    Timber.d("Loading")
+                    Snackbar.make(requireView(), "Loading", Snackbar.LENGTH_LONG).show()
                 }
                 is Result.Error -> {
                     Timber.d(result.error.localizedMessage)
+                    Snackbar.make(
+                        requireView(),
+                        result.formattedErrorMessage,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
                 is Result.Success -> {
-                    Timber.d(result.data.toString())
+                    populateData(result.data)
                 }
             }
         }
+
+        viewModel.cardNumber.observe(viewLifecycleOwner) {
+            binding.checkCardButton.enableState(it.length > 6)
+        }
+
+        binding.cardNumberEditText.addTextChangedListener {
+            viewModel.setCardNumber(it.toString())
+        }
+    }
+
+    private fun populateData(response: BinListResponse?) {
+        binding.textBank.text = response?.bank?.name ?: ""
+        binding.textType.text = response?.type ?: ""
+        binding.textScheme.text = response?.scheme ?: ""
+        binding.textPrepaid.text = response?.prepaid?.toString() ?: ""
+        binding.textCountry.text = response?.country?.name ?: ""
+        binding.textCardNumberLength.text = response?.number?.length?.toString() ?: ""
     }
 
     override fun onDestroyView() {
