@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="pin_view_item_height">80dp</dimen>
+    <dimen name="pin_view_item_width">64dp</dimen>
+    <dimen name="pin_view_item_radius">8dp</dimen>
+    <dimen name="pin_view_line_width">2dp</dimen>
+    <dimen name="fab_width">512dp</dimen>
+    <dimen name="fab_height">68dp</dimen>
+    <dimen name="text_size">22sp</dimen>
+    <dimen name="margin_large">120dp</dimen>
+    <dimen name="progress_bar_size">60dp</dimen>
+</resources>
