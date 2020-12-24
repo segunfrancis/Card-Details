@@ -1,37 +1,39 @@
 package com.segunfrancis.carddetails.presentation.util
 
+import com.segunfrancis.carddetails.R
 import retrofit2.HttpException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
 sealed class Result<out T> {
     data class Success<T>(val data: T?) : Result<T>()
+
+    object Loading : Result<Nothing>()
+
     data class Error(val error: Throwable) : Result<Nothing>() {
         val formattedErrorMessage = when (error) {
             is UnknownHostException -> {
-                "Make sure you are connected to the internet"
+                R.string.error_message_no_internet
             }
             is SocketTimeoutException -> {
-                "Internet might be slow, try again later"
+                R.string.error_message_timeout
             }
             is HttpException -> {
                 when {
                     error.code() == 404 -> {
-                        "The numbers you entered might be incorrect, check the numbers and try again"
+                        R.string.error_message_404
                     }
                     error.code() == 429 -> {
-                        "You have reached your limit, try again after some time"
+                        R.string.error_message_429
                     }
                     else -> {
-                        "Something went wrong"
+                        R.string.error_message_generic
                     }
                 }
             }
             else -> {
-                "Something went wrong"
+                R.string.error_message_generic
             }
         }
     }
-
-    object Loading : Result<Nothing>()
 }

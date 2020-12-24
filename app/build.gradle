@@ -64,6 +64,7 @@ dependencies {
     // PinView
     implementation "com.chaos.view:pinview:$pinView_version"
 
+    // Test
     testImplementation "junit:junit:$jUnit_version"
     androidTestImplementation "androidx.test.ext:junit:$jUnitExt_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"

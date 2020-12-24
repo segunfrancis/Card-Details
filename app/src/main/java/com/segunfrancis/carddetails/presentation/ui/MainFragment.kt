@@ -45,7 +45,7 @@ class MainFragment : Fragment() {
                 }
                 is Result.Error -> {
                     Timber.d(result.error.localizedMessage)
-                    binding.root.showMessage(result.formattedErrorMessage)
+                    binding.root.showMessage(resources.getString(result.formattedErrorMessage))
                     clearData()
                     binding.progressBar.isVisible = false
                 }
